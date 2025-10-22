@@ -1,4 +1,4 @@
-package com.haris.notes.oneNote.model;
+package com.haris.notes.oneNote.Model;
 
 
 import jakarta.persistence.Entity;
