@@ -1,16 +1,21 @@
 package com.haris.notes.oneNote.Model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
+import jakarta.persistence.*;
 
 @Entity
-public class Notes {
 
+public class Notes {
+    @Id
     private int noteid;
     @Lob
     private String content;
+    @Column(name = "ownerName")
     private  String ownerName ;
+
+    public Notes() {
+
+    }
 
     public Notes(int noteid, String content, String ownerName) {
         this.noteid = noteid;
@@ -21,8 +26,6 @@ public class Notes {
     public int getNoteid() {
         return noteid;
     }
-
-
 
     public void setNoteid(int noteid) {
         this.noteid = noteid;
@@ -43,15 +46,4 @@ public class Notes {
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
     }
-
-
-    @Override
-    public String toString() {
-        return "Notes{" +
-                "noteid=" + noteid +
-                ", content='" + content + '\'' +
-                ", ownerName='" + ownerName + '\'' +
-                '}';
-    }
-
 }
