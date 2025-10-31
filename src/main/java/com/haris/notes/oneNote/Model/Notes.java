@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 
 public class Notes {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int noteid;
     @Lob
     private String content;

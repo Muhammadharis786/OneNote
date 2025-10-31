@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class OneNoteApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OneNoteApplication.class, args);
+
+
+        SpringApplication.run(OneNoteApplication.class, args);
 	}
 
 }
