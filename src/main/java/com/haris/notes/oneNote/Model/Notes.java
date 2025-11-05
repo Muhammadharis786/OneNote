@@ -11,6 +11,7 @@
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int noteid;
         @Lob
+
         private String content;
         @Column(name = "ownerName")
         private  String ownerName ;

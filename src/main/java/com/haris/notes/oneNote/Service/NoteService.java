@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class NoteService implements IntService {
 
     }
 
+    @Transactional
     @Override
     public ResponseEntity<?> getbyownerName(String OwnerName) {
 
@@ -82,7 +84,7 @@ public class NoteService implements IntService {
     @Override
     public ResponseEntity<?> udpateNote(Notes note , String username) {
                 for (Notes note1 : noteRepository.findAll()){
-                    if(note1.getNoteid()==note.getNoteid() && note1.getOwnerName().equals(username)){
+                    if(note1.getNoteid()==note.getNoteid() && note.getOwnerName().equals(username)){
                            noteRepository.UpdateNote(note.getNoteid(),note.getOwnerName(),note.getContent());
                           return ResponseEntity.ok("Update Succesfully");
                     }
