@@ -14,12 +14,13 @@ public class MyPrincipal implements UserDetails {
 
        private final User user ;
 
-    public MyPrincipal (User user){
+    public MyPrincipal (User user){   //this is Constructor depedency Injection
             this.user=user;
 
     }
 
    void GetData (){
+
         System.out.println(user.getPassword() +"is : "+ user.getUsername());
     }
 
@@ -31,6 +32,8 @@ public class MyPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
+
+
         return user.getPassword();
     }
 

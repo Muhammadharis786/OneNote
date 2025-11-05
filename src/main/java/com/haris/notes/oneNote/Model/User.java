@@ -1,7 +1,11 @@
 package com.haris.notes.oneNote.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 
@@ -12,6 +16,18 @@ public class User {
     private int uid;
     private String username ;
     private String password;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Notes> notes = new ArrayList<>();
+
+    public List<Notes> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Notes> notes) {
+        this.notes = notes;
+    }
+
     public User() {
 
     }

@@ -8,16 +8,16 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
+
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 
 import javax.sql.DataSource;
+
+import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -31,12 +31,21 @@ UserDetailsService userDetailsService;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> cors.configurationSource(request -> {
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.setAllowedOrigins(List.of("http://127.0.0.1:5500")); // your frontend
+                    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+                    config.setAllowedHeaders(List.of("*"));
+                    config.setAllowCredentials(true);
+                    return config;
+                }))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         // FIX: Use a wildcard to ensure all requests to this path are permitted
-                        .requestMatchers("/api/Register**").permitAll()
-
+                        .requestMatchers("/api/user/Register").permitAll()
+                        .requestMatchers("/api/user/getuser").permitAll()
                         .anyRequest().authenticated())
+
 
                 .httpBasic(withDefaults())
                 .formLogin(withDefaults());
@@ -111,13 +120,8 @@ UserDetailsService userDetailsService;
 //    }
 
 
-    // In com.haris.notes.oneNote.Secure.SecureNotes.java
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder (){
-        // You can also return PasswordEncoder here, but let's stick to the concrete type
-        return new BCryptPasswordEncoder();
-    }
+
 
     @Bean
     public AuthenticationProvider authenticationProvider (){

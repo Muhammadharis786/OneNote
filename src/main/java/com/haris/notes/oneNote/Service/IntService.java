@@ -14,8 +14,8 @@ public interface IntService {
 
     public ResponseEntity<?> addNote(ContentObject contentObject , String ownerName);
 
-    ResponseEntity<?> dltNote(int noteid);
+    ResponseEntity<?> dltNote(int noteid ,String username);
 
 
-    ResponseEntity<?> udpateNote(Notes note);
+    ResponseEntity<?> udpateNote(Notes note , String username);
 }

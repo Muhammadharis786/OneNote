@@ -1,50 +1,57 @@
-package com.haris.notes.oneNote.Model;
+    package com.haris.notes.oneNote.Model;
 
 
-import jakarta.persistence.*;
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+    import jakarta.persistence.*;
 
-@Entity
+    @Entity
 
-public class Notes {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int noteid;
-    @Lob
-    private String content;
-    @Column(name = "ownerName")
-    private  String ownerName ;
+    public class Notes {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private int noteid;
+        @Lob
+        private String content;
+        @Column(name = "ownerName")
+        private  String ownerName ;
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "uid", nullable = false)
+        @JsonIgnore
 
-    public Notes() {
+        private User user; // <-- Yeh field User entity mein 'mappedBy = "user"' se jura h
+
+
+
+
+        public Notes() {
+
+        }
+
+
+
+        public int getNoteid() {
+            return noteid;
+        }
+
+
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public String getOwnerName() {
+            return ownerName;
+        }
+
+        public void setOwnerName(String ownerName) {
+            this.ownerName = ownerName;
+        }
+        public User getUser() {return user;}
+
+        public void setUser(User user) {this.user = user;}
 
     }
-
-    public Notes(int noteid, String content, String ownerName) {
-        this.noteid = noteid;
-        this.content = content;
-        this.ownerName = ownerName;
-    }
-
-    public int getNoteid() {
-        return noteid;
-    }
-
-    public void setNoteid(int noteid) {
-        this.noteid = noteid;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
-}

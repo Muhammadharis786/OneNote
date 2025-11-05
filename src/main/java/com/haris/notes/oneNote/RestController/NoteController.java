@@ -48,18 +48,22 @@ public class NoteController {
     }
 
     @DeleteMapping("api/DeleteNote/{noteid}")
-    public ResponseEntity<?> dltNote (@PathVariable int noteid,
-                                      @AuthenticationPrincipal UserDetails userDetails
+    public ResponseEntity<?> dltNote (@PathVariable int noteid , @AuthenticationPrincipal UserDetails userDetails
     ){
-        return noteServices.dltNote(noteid);
+
+      String username =   userDetails.getUsername();
+        return noteServices.dltNote(noteid , username);
     }
 
     @PutMapping("api/UpdateNote")
 
-    public ResponseEntity<?> updateNote ( @RequestBody   Notes note,
-                                          @AuthenticationPrincipal UserDetails userDetails ){
+    public ResponseEntity<?> updateNote ( @RequestBody   Notes note , @AuthenticationPrincipal
+                                          UserDetails userDetails
+                                         ){
 
-        return noteServices.udpateNote(note);
+        String username =  userDetails.getUsername();
+
+        return noteServices.udpateNote(note , username);
     }
 
 
